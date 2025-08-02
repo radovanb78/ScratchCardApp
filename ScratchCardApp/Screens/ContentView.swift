@@ -1,14 +1,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var viewModel = ViewModel(service: NetworkService(), exclusiveMin: "6.1")
+    @StateObject private var viewModel = ScratchCardViewModel(service: NetworkService(), exclusiveMin: "6.1")
 
     var body: some View {
         NavigationView {
             VStack {
                 Spacer()
 
-                VStack(spacing: 20) {
+                VStack(spacing: 16) {
                     Text("Scratch Card Status")
                         .font(.title2)
                         .fontWeight(.semibold)

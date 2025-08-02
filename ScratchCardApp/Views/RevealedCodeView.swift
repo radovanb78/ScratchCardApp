@@ -1,10 +1,3 @@
-//
-//  RevealedCodeView.swift
-//  ScratchCardApp
-//
-//  Created by Radovan Bojkovský on 01/08/2025.
-//
-
 import SwiftUI
 
 struct RevealedCodeView: View {
@@ -21,7 +14,7 @@ struct RevealedCodeView: View {
                 Text(code)
                     .foregroundColor(.white)
                     .font(.system(size: 32, weight: .bold, design: .monospaced))
-                    .frame(maxWidth: .infinity, alignment: .center)
+                    .multilineTextAlignment(.center)
                     .padding()
             }
     }

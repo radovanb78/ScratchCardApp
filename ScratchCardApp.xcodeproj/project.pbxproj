@@ -29,9 +29,25 @@
 		37B239862E3CEBBC00BF597A /* ScratchCardAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScratchCardAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		37B23A922E3E359600BF597A /* Exceptions for "ScratchCardApp" folder in "ScratchCardAppTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/ActivationRequest.swift,
+				Models/ActivationResponse.swift,
+				"Screens/View Model/ScratchCardViewModel.swift",
+				Services/NetworkServiceProtocol.swift,
+			);
+			target = 37B2397B2E3CEBBC00BF597A /* ScratchCardAppTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		37B239712E3CEBBA00BF597A /* ScratchCardApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				37B23A922E3E359600BF597A /* Exceptions for "ScratchCardApp" folder in "ScratchCardAppTests" target */,
+			);
 			path = ScratchCardApp;
 			sourceTree = "<group>";
 		};
@@ -410,7 +426,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -444,7 +460,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -457,7 +473,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5H543XSR36;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = sk.rb.ScratchCardAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -476,7 +492,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5H543XSR36;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = sk.rb.ScratchCardAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

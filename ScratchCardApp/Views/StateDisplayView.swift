@@ -1,17 +1,10 @@
-//
-//  StateDisplayView.swift
-//  ScratchCardApp
-//
-//  Created by Radovan Bojkovský on 01/08/2025.
-//
-
 import SwiftUI
 
 struct StateDisplayView: View {
     let state: ScratchCardState
     
     var body: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 16) {
             switch state {
                 case .initial, .generated:
                 Image(systemName: "rectangle.fill")

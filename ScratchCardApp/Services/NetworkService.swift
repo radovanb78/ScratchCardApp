@@ -6,29 +6,11 @@ enum NetworkError: Error {
     case serverError(String)
 }
 
-enum HttpMethod: String {
-    case get = "GET"
-    case post = "POST"
-}
-
-protocol NetworkServiceProtocol {
-    func networkRequest<RequestData: Encodable, ResponseData: Decodable>(
-        url: String,
-        method: HttpMethod,
-        requestData: RequestData?
-    ) async throws -> ResponseData
-}
-
 final class NetworkService: NetworkServiceProtocol {
-    private func encodeToQueryItems<RequestData: Encodable>(_ value: RequestData) -> [URLQueryItem]? {
-        guard let data = try? JSONEncoder().encode(value),
-              let dict = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-            return nil
-        }
-        
-        return dict.map { key, value in
-            URLQueryItem(name: key, value: "\(value)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))
-        }
+    private let encoder: JSONEncoder
+
+    init(encoder: JSONEncoder = JSONEncoder()) {
+        self.encoder = encoder
     }
 
     func networkRequest<RequestData: Encodable, ResponseData: Decodable>(
@@ -45,9 +27,9 @@ final class NetworkService: NetworkServiceProtocol {
         if let requestData {
             switch method {
                 case .get:
-                    urlComponents.queryItems = encodeToQueryItems(requestData)
+                    urlComponents.queryItems = NetworkUtils.encodeToQueryItems(requestData, encoder: encoder)
                 case .post:
-                    bodyData = try JSONEncoder().encode(requestData)
+                    bodyData = try encoder.encode(requestData)
             }
         }
 

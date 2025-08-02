@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ActivationView: View {
-    @ObservedObject var viewModel: ViewModel
+    @ObservedObject var viewModel: ScratchCardViewModel
     @State private var showAlert = false
     @State private var alertMessage = ""
     
@@ -25,8 +25,9 @@ struct ActivationView: View {
                         .font(.headline)
                         .foregroundColor(.secondary)
                         .padding()
-                        .backgroundStyle(Color(.systemGray6))
-                        .cornerRadius(8)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(12)
+                        .multilineTextAlignment(.center)
                 }
                 
                 Text("Tap the button below to activate your card")
@@ -84,6 +85,6 @@ struct ActivationView: View {
 
 #Preview {
     NavigationView {
-        ActivationView(viewModel: ViewModel(service: NetworkService(), exclusiveMin: "6.1"))
+        ActivationView(viewModel: ScratchCardViewModel(service: NetworkService(), exclusiveMin: "6.1"))
     }
 } 

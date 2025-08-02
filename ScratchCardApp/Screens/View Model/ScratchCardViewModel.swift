@@ -1,6 +1,6 @@
 import Foundation
 
-enum ScratchCardState {
+enum ScratchCardState: Equatable {
     case initial
     case generated(code: String = "")
     case scratched(code: String = "")
@@ -21,19 +21,19 @@ enum ScratchCardState {
 }
 
 @MainActor
-final class ViewModel: ObservableObject {
+final class ScratchCardViewModel: ObservableObject {
     @Published private(set) var state: ScratchCardState = .initial
     @Published private(set) var isActivating: Bool = false
 
-    private var service: NetworkServiceProtocol
-    private var exclusiveMin: String
+    nonisolated private let service: NetworkServiceProtocol
+    private let exclusiveMin: String
 
     init(service: NetworkServiceProtocol, exclusiveMin: String) {
         self.service = service
         self.exclusiveMin = exclusiveMin
     }
 
-    private var codeGenerationTask: Task<Void, Never>?
+    private var codeGenerationTask: Task<String, Error>?
 
     func setScratched() {
         guard case .generated(let code) = state else { return }
@@ -79,22 +79,30 @@ final class ViewModel: ObservableObject {
         }
     }
 
-    func generateCode() async {
+    func generateCode(
+        wait: @escaping () async throws -> Void = {
+            try await Task.sleep(for: .seconds(2))
+        }
+    ) async throws -> String {
         guard case .initial = state,
-              codeGenerationTask == nil else { return }
+              codeGenerationTask == nil else { throw NSError(domain: "CodeGenerationError", code: 100, userInfo: nil) }
 
-        codeGenerationTask = Task {
+        codeGenerationTask = Task<String, Error> { [weak self] in
             do {
-                try await Task.sleep(for: .seconds(2))
+                try await wait()
                 try Task.checkCancellation()
                 let code = UUID().uuidString
-                await MainActor.run {
-                    self.state = .generated(code: code)
+                return await MainActor.run {
+                    self?.state = .generated(code: code)
+                    return code
                 }
             } catch {
                 print("Code generation operation was cancelled or failed: \(error)")
+                throw error
             }
         }
+
+        return try await codeGenerationTask!.value
     }
 
     func cancelCodeGeneration() {

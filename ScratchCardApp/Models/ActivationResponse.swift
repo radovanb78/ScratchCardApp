@@ -1,10 +1,3 @@
-//
-//  ActivationResponse.swift
-//  ScratchCardApp
-//
-//  Created by Radovan Bojkovský on 01/08/2025.
-//
-
 import Foundation
 
 struct ActivationResponse: Decodable {
@@ -28,7 +21,7 @@ struct ActivationResponse: Decodable {
     func isGreaterDecimalNumber(then other: String) throws -> Bool {
         guard let lhs = Decimal(string: ios),
               let rhs = Decimal(string: other) else {
-            throw NSError()
+            throw NSError(domain: "InvalidArgumentError", code: 100, userInfo: nil)
         }
         return lhs > rhs
     }

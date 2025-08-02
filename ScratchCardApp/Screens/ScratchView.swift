@@ -1,22 +1,24 @@
 import SwiftUI
 
 struct ScratchView: View {
-    @ObservedObject var viewModel: ViewModel
+    @ObservedObject var viewModel: ScratchCardViewModel
 
     @State private var points: [CGPoint] = []
 
     private let gridSize = 5
     private let gridCellSize = 50
-    private let scratchClearAmount: CGFloat = 0.6
+    private let scratchClearAmount: CGFloat = 0.75
+
+    let feedbackGen = UIImpactFeedbackGenerator(style: .soft)
 
     var body: some View {
         VStack {
             Spacer()
 
             ZStack {
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(Color.gray)
+                SilverGrainBackground()
                     .frame(width: 300, height: 300)
+                    .cornerRadius(20)
                     .overlay {
                         if viewModel.canScratch {
                             Image(systemName: "hand.tap.fill")
@@ -24,9 +26,8 @@ struct ScratchView: View {
                                 .foregroundColor(.blue)
                         } else {
                             ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle())
+                                .progressViewStyle(CircularProgressViewStyle(tint: .blue))
                                 .scaleEffect(2)
-                                .tint(.blue)
                         }
                     }
 
@@ -42,6 +43,7 @@ struct ScratchView: View {
                             DragGesture(minimumDistance: 0, coordinateSpace: .local)
                                 .onChanged { value in
                                     points.append(value.location)
+                                    feedbackGen.impactOccurred()
                                 }
                                 .onEnded { _ in
                                     let cgpath = Path { path in
@@ -98,7 +100,7 @@ struct ScratchView: View {
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             Task {
-                await viewModel.generateCode()
+                try await viewModel.generateCode()
             }
         }
         .onDisappear {
@@ -109,6 +111,6 @@ struct ScratchView: View {
 
 #Preview {
     NavigationView {
-        ScratchView(viewModel: ViewModel(service: NetworkService(), exclusiveMin: "6.1"))
+        ScratchView(viewModel: ScratchCardViewModel(service: NetworkService(), exclusiveMin: "6.1"))
     }
 }

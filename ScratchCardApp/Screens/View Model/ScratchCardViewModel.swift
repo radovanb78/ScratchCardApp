@@ -120,7 +120,7 @@ final class ScratchCardViewModel: ObservableObject {
                 requestData: ActivationRequest(code: code)
             )
 
-            let result = response.isGreatetVersionNumber(then: exclusiveMin)
+            let result = response.isGreaterVersionNumber(then: exclusiveMin)
 
             await MainActor.run {
                 if result {
@@ -135,5 +135,3 @@ final class ScratchCardViewModel: ObservableObject {
         }
     }
 }
-
-

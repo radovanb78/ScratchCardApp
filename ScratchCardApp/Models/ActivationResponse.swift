@@ -3,7 +3,7 @@ import Foundation
 struct ActivationResponse: Decodable {
     let ios: String
 
-    func isGreatetVersionNumber(then other: String) -> Bool {
+    func isGreaterVersionNumber(then other: String) -> Bool {
         let lhsComponents = ios.split(separator: ".").map { Int($0) ?? 0 }
         let rhsComponents = other.split(separator: ".").map { Int($0) ?? 0 }
 
@@ -12,7 +12,8 @@ struct ActivationResponse: Decodable {
         let rhs = rhsComponents + Array(repeating: 0, count: maxLength - rhsComponents.count)
 
         for (l, r) in zip(lhs, rhs) {
-            if l > r { return true }
+            if l == r { continue }
+            return l > r
         }
 
         return false

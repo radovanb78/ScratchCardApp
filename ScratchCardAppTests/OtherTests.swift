@@ -23,11 +23,11 @@ final class OtherTests: XCTestCase {
         let activationResponse2 = ActivationResponse(ios: "6.100")
         let activationResponse3 = ActivationResponse(ios: "6.100.0")
 
-        XCTAssertTrue(activationResponse1.isGreatetVersionNumber(then: "6.0"))
-        XCTAssertFalse(activationResponse1.isGreatetVersionNumber(then: "6.1"))
-        XCTAssertFalse(activationResponse1.isGreatetVersionNumber(then: "6.23"))
-        XCTAssertTrue(activationResponse2.isGreatetVersionNumber(then: "6.10"))
-        XCTAssertFalse(activationResponse2.isGreatetVersionNumber(then: "6.100.0"))
-        XCTAssertFalse(activationResponse3.isGreatetVersionNumber(then: "6.100"))
+        XCTAssertTrue(activationResponse1.isGreaterVersionNumber(then: "6.0"))
+        XCTAssertFalse(activationResponse1.isGreaterVersionNumber(then: "6.1"))
+        XCTAssertFalse(activationResponse1.isGreaterVersionNumber(then: "6.23"))
+        XCTAssertTrue(activationResponse2.isGreaterVersionNumber(then: "6.10"))
+        XCTAssertFalse(activationResponse2.isGreaterVersionNumber(then: "6.100.0"))
+        XCTAssertFalse(activationResponse3.isGreaterVersionNumber(then: "6.100"))
     }
 }
